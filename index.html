@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Code Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      font-size: 2em;
+    }
+    textarea {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #0070f3;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0059c1;
+    }
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    pre {
+      background: #1e1e1e;
+      color: #0f0;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+    .note {
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AI Code Generator</h1>
+    <p>Masukkan deskripsi proyekmu, dan AI akan menghasilkan kode HTML/CSS.</p>
+    <textarea id="input" rows="4" placeholder="Contoh: Landing page untuk toko kopi dengan tombol dan gambar."></textarea>
+    <div class="button-row">
+      <button onclick="generateCode()">Generate Kode</button>
+      <button onclick="loadExample()">Contoh Deskripsi</button>
+      <button onclick="copyCode()">Salin Kode</button>
+      <button onclick="downloadCode()">Unduh Kode</button>
+    </div>
+    <pre id="output">...</pre>
+    <p class="note">Hasil ini hanya simulasi. Untuk versi AI nyata, hubungkan dengan API seperti OpenAI GPT.</p>
+  </div>
+
+  <script>
+    function generateCode() {
+      const input = document.getElementById("input").value.toLowerCase();
+      const output = document.getElementById("output");
+      output.textContent = "Loading...";
+
+      let result = "";
+      if (input.includes("toko kopi")) {
+        result = \`<!DOCTYPE html>
+<html>
+<head><title>Toko Kopi</title></head>
+<body style='font-family:sans-serif;text-align:center'>
+  <h1>Selamat Datang di Toko Kopi Kami</h1>
+  <img src='https://source.unsplash.com/600x300/?coffee' alt='Kopi' />
+  <p>Nikmati aroma kopi terbaik setiap hari!</p>
+  <button style='padding:10px 20px;font-size:16px'>Pesan Sekarang</button>
+</body>
+</html>\`;
+      } else {
+        result = \`<!DOCTYPE html>
+<html>
+<head><title>Halaman AI</title></head>
+<body style='font-family:sans-serif;text-align:center'>
+  <h1>Halaman Otomatis oleh AI</h1>
+  <p>Deskripsi kamu: \${input}</p>
+</body>
+</html>\`;
+      }
+
+      output.textContent = result;
+    }
+
+    function loadExample() {
+      document.getElementById("input").value = "Landing page untuk toko kopi dengan tombol dan gambar.";
+    }
+
+    function copyCode() {
+      const text = document.getElementById("output").textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Kode disalin ke clipboard!");
+      });
+    }
+
+    function downloadCode() {
+      const code = document.getElementById("output").textContent;
+      const blob = new Blob([code], { type: "text/html" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "generated.html";
+      link.click();
+    }
+  </script>
+</body>
+</html>
